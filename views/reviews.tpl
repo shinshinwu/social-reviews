@@ -4,58 +4,9 @@
 <head>
   <title>Beego</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <style type="text/css">
-    *,body {
-      margin: 0px;
-      padding: 0px;
-    }
-
-    body {
-      margin: 0px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 20px;
-      background-color: #fff;
-    }
-
-    header,
-    footer {
-      width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    header {
-      padding: 100px 0;
-    }
-
-    footer {
-      line-height: 1.8;
-      text-align: center;
-      padding: 50px 0;
-      color: #999;
-    }
-
-    .description {
-      text-align: center;
-      font-size: 16px;
-    }
-
-    a {
-      color: #444;
-      text-decoration: none;
-    }
-
-    .backdrop {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      box-shadow: inset 0px 0px 100px #ddd;
-      z-index: -1;
-      top: 0px;
-      left: 0px;
-    }
-  </style>
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/static/css/normalize.css">
+  <link rel="stylesheet" href="/static/css/skeleton.css">
 </head>
 
 <body>
@@ -70,6 +21,30 @@
     </div>
   </header>
   <div class="backdrop"></div>
+
+  <form>
+    <div class="row">
+      <div class="six columns">
+        <label for="exampleEmailInput">Your email</label>
+        <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
+      </div>
+      <div class="six columns">
+        <label for="exampleRecipientInput">Reason for contacting</label>
+        <select class="u-full-width" id="exampleRecipientInput">
+          <option value="Option 1">Questions</option>
+          <option value="Option 2">Admiration</option>
+          <option value="Option 3">Can I get your number?</option>
+        </select>
+      </div>
+    </div>
+    <label for="exampleMessage">Message</label>
+    <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
+    <label class="example-send-yourself-copy">
+      <input type="checkbox">
+      <span class="label-body">Send a copy to yourself</span>
+    </label>
+    <input class="button-primary" type="submit" value="Submit">
+  </form>
 
 </body>
 </html>

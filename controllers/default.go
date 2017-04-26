@@ -22,6 +22,6 @@ func (c *MainController) Reviews() {
   }
 	c.Data["PageTitle"] = "Review Index Page"
     c.Data["UserName"] = user.UserName
-    c.Data["Email"] = user.Emails
+    c.Data["Email"] = user.Email
 	c.TplName = "reviews.tpl"
 }

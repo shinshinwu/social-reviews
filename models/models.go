@@ -1,28 +1,36 @@
 package models
 
 import (
+  "time"
   "social-reviews/db"
   "github.com/astaxie/beego"
 )
 
 type User struct {
-  ID               int
-  UserName         string  `gorm:"size:255;not null;unique"` // Default size for string is 255, reset it with this tag
-  Emails           string  `gorm:"size:255;unique"`
+  ID              int    `gorm:"primary_key"`
+  UserName        string  `gorm:"size:255;not null;unique_index"` // Default size for string is 255, reset it with this tag
+  Email           string  `gorm:"size:255;unique_index"`
+  CreatedAt       time.Time
+  UpdatedAt       time.Time
+
+  Reviews         []Review
 }
 
-// type Review struct {
-// 	ID      int    `orm:"column(id)"`
-//   User    *User `orm:"rel(fk)"`
-// 	Title   string `orm:"size(250)"`
-// 	Rating  int16
-// 	Comment string  `orm:"type(text)"`
-//   CreatedAt time.Time `orm:"auto_now_add"`
-//   UpdatedAt time.Time `orm:"auto_now"`
-// }
+type Review struct {
+	ID              int    `gorm:"primary_key"`
+  UserID          int     `gorm:"index"`
+	Title           string  `gorm:"not null"`
+	Comment         string  `gorm:"type:text;not null"`
+  IsApproved      bool    `gorm:"default:1"`
+  CreatedAt       time.Time
+  UpdatedAt       time.Time
+
+  User            User
+}
 
 func init() {
   db.RegisterModel(&User{})
+  db.RegisterModel(&Review{})
 }
 
 func AllUsers() (users []*User, err error) {
