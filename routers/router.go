@@ -2,7 +2,6 @@ package routers
 
 import (
 	"social-reviews/controllers"
-
 	"github.com/astaxie/beego"
 )
 

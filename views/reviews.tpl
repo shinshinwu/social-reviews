@@ -63,6 +63,10 @@
     <h1 class="logo">Welcome to Beego</h1>
     <div class="description">
       We are currently on the page {{.PageTitle}}
+      <br />
+      User Name: {{.UserName}}
+      <br />
+      Email: {{.Email}}
     </div>
   </header>
   <div class="backdrop"></div>
