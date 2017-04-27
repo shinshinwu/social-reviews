@@ -51,3 +51,10 @@ func FindUser(id int) (*User, error) {
   }
   return user, err
 }
+
+func CreateUser(username string, email string) (*User, error) {
+  user := &User{UserName: username, Email: email}
+  res := db.Conn.Debug().Create(user)
+  err := res.Error
+  return user, err
+}

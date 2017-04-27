@@ -22,27 +22,28 @@
   </header>
   <div class="backdrop"></div>
 
-  <form>
+  <form action={{urlfor "MainController.CreateReview"}} accept-charset="UTF-8" method="post">
     <div class="row">
       <div class="six columns">
         <label for="exampleEmailInput">Your email</label>
-        <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
+        <input class="u-full-width" type="email" placeholder="youremail@host.com" id="user_email" name="user[email]">
       </div>
       <div class="six columns">
-        <label for="exampleRecipientInput">Reason for contacting</label>
-        <select class="u-full-width" id="exampleRecipientInput">
-          <option value="Option 1">Questions</option>
-          <option value="Option 2">Admiration</option>
-          <option value="Option 3">Can I get your number?</option>
-        </select>
+        <label for="exampleEmailInput">Username</label>
+        <input class="u-full-width" type="text" id="user_username" name="user[username]">
       </div>
     </div>
-    <label for="exampleMessage">Message</label>
-    <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
-    <label class="example-send-yourself-copy">
-      <input type="checkbox">
-      <span class="label-body">Send a copy to yourself</span>
-    </label>
+    <div class="row">
+      <div class="twelve columns">
+      <label for="exampleMessage">Review Title</label>
+      <input class="u-full-width" type="text" placeholder="Title" id="review_title" name="review[title]">
+    </div>
+    <div class="row">
+      <div class="twelve columns">
+        <label for="exampleMessage">Comment</label>
+        <textarea class="u-full-width" placeholder="My review …" id="review_comment" name="review[comment]"></textarea>
+      </div>
+    </div>
     <input class="button-primary" type="submit" value="Submit">
   </form>
 
