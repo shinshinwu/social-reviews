@@ -1,6 +1,7 @@
 package controllers
 
 import (
+  "encoding/json"
 	"github.com/astaxie/beego"
   "social-reviews/models"
 )
@@ -16,13 +17,12 @@ func (c *MainController) Get() {
 }
 
 func (c *MainController) ShowReviews() {
-  user, err := models.FindUser(1)
+  reviews, err := models.AllReviews()
   if err != nil {
-    beego.BeeLogger.Error("Error finding first user%v", err.Error())
+    beego.BeeLogger.Error("Error finding reviews %v", err.Error())
   }
 	c.Data["PageTitle"] = "Review Index Page"
-    c.Data["UserName"] = user.UserName
-    c.Data["Email"] = user.Email
+  c.Data["reviews"] = reviews
 	c.TplName = "reviews.tpl"
 }
 
@@ -33,8 +33,21 @@ func (c *MainController) CreateReview() {
   user, err := models.CreateUser(username, email)
   if err != nil {
     c.Ctx.WriteString("failed to create user")
-  } else {
-    c.Ctx.WriteString(user.Email)
-    c.Ctx.WriteString(user.UserName)
   }
+
+  title := c.GetString("review[title]")
+  comment := c.GetString("review[comment]")
+
+  review, err := models.CreateReview(user.ID, title, comment)
+  if err != nil {
+    c.Ctx.WriteString("failed to create review")
+  }
+
+  data, err := json.Marshal(review)
+  if err != nil {
+      panic(err)
+  }
+
+  c.Data["review"] = data
+  c.ServeJSON()
 }
