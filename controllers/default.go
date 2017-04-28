@@ -1,7 +1,8 @@
 package controllers
 
+// "encoding/json"
 import (
-  "encoding/json"
+  "fmt"
 	"github.com/astaxie/beego"
   "social-reviews/models"
 )
@@ -27,27 +28,26 @@ func (c *MainController) ShowReviews() {
 }
 
 func (c *MainController) CreateReview() {
-  email := c.GetString("user[email]")
-  username := c.GetString("user[username]")
+  email := c.GetString("email")
+  username := c.GetString("username")
 
   user, err := models.CreateUser(username, email)
   if err != nil {
     c.Ctx.WriteString("failed to create user")
   }
 
-  title := c.GetString("review[title]")
-  comment := c.GetString("review[comment]")
+  title := c.GetString("title")
+  comment := c.GetString("comment")
 
   review, err := models.CreateReview(user.ID, title, comment)
   if err != nil {
     c.Ctx.WriteString("failed to create review")
   }
 
-  data, err := json.Marshal(review)
-  if err != nil {
-      panic(err)
-  }
+  fmt.Println("=============================")
+  fmt.Println("created Review is:")
+  fmt.Println(review.Comment)
 
-  c.Data["review"] = data
+  c.Data["json"] = map[string]interface{}{"review": review, "user": user}
   c.ServeJSON()
 }

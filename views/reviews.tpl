@@ -16,24 +16,20 @@
     <h1 class="logo">Welcome to Beego</h1>
     <div class="description">
       We are currently on the page {{.PageTitle}}
-      <br />
-      User Name: {{.UserName}}
-      <br />
-      Email: {{.Email}}
     </div>
   </header>
   <div class="backdrop"></div>
 
   <div class="docs-section">
-    <form action={{urlfor "MainController.CreateReview"}} accept-charset="UTF-8" method="post">
+    <form action={{urlfor "MainController.CreateReview"}} method="post" id="review-form">
       <div class="row">
         <div class="six columns">
           <label for="exampleEmailInput">Your email</label>
-          <input class="u-full-width" type="email" placeholder="youremail@host.com" id="user_email" name="user[email]">
+          <input class="u-full-width" type="email" placeholder="youremail@host.com" id="email" name="user[email]">
         </div>
         <div class="six columns">
           <label for="exampleEmailInput">Username</label>
-          <input class="u-full-width" type="text" id="user_username" name="user[username]">
+          <input class="u-full-width" type="text" id="username" name="user[username]">
         </div>
       </div>
       <div class="row">
@@ -55,7 +51,7 @@
     <h3>Reviews:</h3>
     <div id="reviews-panel">
       {{range $index, $review := .reviews}}
-        <div class="row" style="padding-bottom:25px;">
+        <div class="row">
           <div class="one column"></div>
           <div class="ten columns">
             <div class="review">
@@ -71,7 +67,35 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-        console.log("script loaded");
+      var form = $('#review-form');
+      form.submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: {{urlfor "MainController.CreateReview"}},
+          data: {
+            username: $("#username").val(),
+            email:    $("#email").val(),
+            title:    $("#review_title").val(),
+            comment:  $("#review_comment").val()
+          } // The data passed to / by POST method
+        }).done(function(response) {
+          $("#reviews-panel").prepend(
+            `<div class="row" style="padding-bottom:25px;">
+              <div class="one column"></div>
+              <div class="ten columns">
+                <div class="review">
+                  <h5>${response.review.Title}</h5>
+                  <p>${response.review.Comment}</p>
+                  <small>- Posted by ${response.user.UserName}</small>
+                </div>
+              </div>
+            </div>`
+          )
+        }).fail(function(error) {
+          // do error handling here
+        });
+      });
     });
   </script>
 
