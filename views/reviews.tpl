@@ -80,6 +80,8 @@
             comment:  $("#review_comment").val()
           } // The data passed to / by POST method
         }).done(function(response) {
+          // reset all form fields
+          form.find("input[type=text], input[type=email], textarea").val("");
           $("#reviews-panel").prepend(
             `<div class="row" style="padding-bottom:25px;">
               <div class="one column"></div>

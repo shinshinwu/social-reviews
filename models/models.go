@@ -33,7 +33,7 @@ func init() {
 }
 
 func AllUsers() (users []*User, err error) {
-  res := db.Conn.Debug().Order("first_name asc, last_name asc").Find(&users)
+  res := db.Conn.Debug().Order("created_at desc").Find(&users)
   err = res.Error
   if err != nil {
     beego.BeeLogger.Error("Error finding users: %v", res.Error.Error())
@@ -59,7 +59,7 @@ func CreateUser(userName string, email string) (*User, error) {
 }
 
 func AllReviews() (reviews []*Review, err error) {
-  res := db.Conn.Debug().Preload("User").Find(&reviews)
+  res := db.Conn.Debug().Preload("User").Order("created_at desc").Find(&reviews)
   err = res.Error
   if err != nil {
     beego.BeeLogger.Error("Error finding reviews: %v", res.Error.Error())
